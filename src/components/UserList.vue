@@ -1,32 +1,36 @@
 <template>
   <div v-if="users && users.length">
-    <h1>User Details</h1>
+    <h1 class="text-xl font-bold mb-8">User List</h1>
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Location</th>
-          <th>Avatar</th>
-          <th>Actions</th>
+          <th class="font-bold">First Name</th>
+          <th class="font-bold">Last Name</th>
+          <th class="font-bold">Email</th>
+          <th class="font-bold">Location</th>
+          <th class="font-bold">Avatar</th>
+          <th class="font-bold">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="user in users" :key="user.id">
-          <td>{{ user.firstName }} {{ user.lastName }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.address.city }}</td>
           <td><img :src="user.avatar" alt="User avatar" /></td>
-          <td><router-link :to="'/user/' + user.id">View Details</router-link></td>
+          <td>
+            <router-link class="inline-block px-4 py-2 bg-blue-500 text-white rounded text-xs" :to="'/user/' + user.id">View Details</router-link>
+          </td>
         </tr>
       </tbody>
     </table>
     <div v-if="loading">Loading...</div>
-    <div>
+    <div class="mt-8 flex justify-center content-center align-middle">
       <button @click="changePage(-1)" :disabled="isPreviousDisabled">Previous</button>
+      <span class="flex mx-8 align-middle items-center"> Page {{ currentPage }} of {{ totalPages }}</span>
       <button @click="changePage(1)" :disabled="isNextDisabled">Next</button>
     </div>
-    <p>Page {{ currentPage }} of {{ totalPages }}</p>
   </div>
   <p v-else>No Users Found.</p>
 </template>

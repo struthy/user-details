@@ -35,6 +35,12 @@
           <span class="font-semibold">Account Type:</span> {{ user.paymentDetails.accountType }}
         </p>
       </div>
+
+      <div class="w-full flex justify-end">
+        <router-link to="/" class="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded">
+          Back to Home
+        </router-link>
+      </div>
     </div>
   </div>
   <p v-else class="p-4 text-gray-600">Loading user details...</p>
