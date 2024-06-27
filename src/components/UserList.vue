@@ -30,6 +30,7 @@
         Next
       </button>
     </div>
+    <p>Page {{ currentPage }} of {{ totalPages }}</p>
   </div>
   <p v-else>No Users Found.</p>
 </template>
@@ -56,8 +57,9 @@ async function fetchUserData(page) {
   console.log(`Fetching page: ${page}`)
   try {
     const response = await axios.get(`/api/user?page=${page}&limit=${limit.value}`)
+    console.log('API response:', response.data) // Log the entire response
     users.value = response.data.results
-    totalPages.value = response.data.metadata.numPages
+    totalPages.value = response.data.metadata.numPages // Use numPages from the response metadata
     console.log(`Total pages: ${totalPages.value}`)
     currentPage.value = page
     loading.value = false
