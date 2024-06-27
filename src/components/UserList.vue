@@ -23,12 +23,8 @@
     </table>
     <div v-if="loading">Loading...</div>
     <div>
-      <button @click="changePage(-1)" :disabled="currentPage.value <= 1 || loading">
-        Previous
-      </button>
-      <button @click="changePage(1)" :disabled="currentPage.value >= totalPages.value || loading">
-        Next
-      </button>
+      <button @click="changePage(-1)" :disabled="isPreviousDisabled">Previous</button>
+      <button @click="changePage(1)" :disabled="isNextDisabled">Next</button>
     </div>
     <p>Page {{ currentPage }} of {{ totalPages }}</p>
   </div>
@@ -36,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
 const users = ref([])
@@ -44,6 +40,9 @@ const currentPage = ref(1)
 const limit = ref(15)
 const totalPages = ref(0)
 const loading = ref(false)
+
+const isPreviousDisabled = computed(() => currentPage.value <= 1 || loading.value)
+const isNextDisabled = computed(() => currentPage.value >= totalPages.value || loading.value)
 
 const changePage = (increment) => {
   const newPage = currentPage.value + increment
