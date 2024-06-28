@@ -1,11 +1,12 @@
 <template>
   <div v-if="users && users.length">
     <h1 class="text-xl font-bold mb-8">User List</h1>
+    <p class="mb-4" v-html="orderMessage"></p>
     <table>
       <thead>
         <tr>
-          <th class="font-bold cursor-pointer underline text-blue-500" @click="changeOrder('firstName')">First Name</th>
-          <th class="font-bold cursor-pointer underline text-blue-500" @click="changeOrder('lastName')">Last Name</th>
+          <th class="font-bold cursor-pointer text-blue-500" @click="changeOrder('firstName')">First Name</th>
+          <th class="font-bold cursor-pointer text-blue-500" @click="changeOrder('lastName')">Last Name</th>
           <th class="font-bold">Email</th>
           <th class="font-bold">Location</th>
           <th class="font-bold">Avatar</th>
@@ -70,6 +71,12 @@ const pages = computed(() => {
 
 const isPreviousDisabled = computed(() => currentPage.value <= 1 || loading.value)
 const isNextDisabled = computed(() => currentPage.value >= totalPages.value || loading.value)
+
+const orderMessage = computed(() => {
+  const field = orderBy.value === 'firstName' ? 'First Name' : 'Last Name'
+  const direction = order.value === 'asc' ? 'ascending' : 'descending'
+  return `Currently ordered by <strong>${field}</strong> in <strong>${direction}</strong> order`
+})
 
 const changePage = (increment) => {
   const newPage = currentPage.value + increment

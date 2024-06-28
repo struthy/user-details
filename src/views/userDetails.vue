@@ -24,22 +24,14 @@
 
       <div class="w-full sm:w-1/4">
         <h3 class="text-lg font-semibold mb-2">Payment Details:</h3>
-        <p>
-          <span class="font-semibold">Account Name:</span> {{ user.paymentDetails.accountName }}
-        </p>
-        <p>
-          <span class="font-semibold">Account Number:</span> {{ user.paymentDetails.accountNumber }}
-        </p>
+        <p><span class="font-semibold">Account Name:</span> {{ user.paymentDetails.accountName }}</p>
+        <p><span class="font-semibold">Account Number:</span> {{ user.paymentDetails.accountNumber }}</p>
         <p><span class="font-semibold">Sort Code:</span> {{ user.paymentDetails.sortCode }}</p>
-        <p>
-          <span class="font-semibold">Account Type:</span> {{ user.paymentDetails.accountType }}
-        </p>
+        <p><span class="font-semibold">Account Type:</span> {{ user.paymentDetails.accountType }}</p>
       </div>
 
       <div class="w-full flex justify-end">
-        <router-link to="/" class="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded">
-          Back to Home
-        </router-link>
+        <router-link to="/" class="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded"> Back to User List </router-link>
       </div>
     </div>
   </div>
