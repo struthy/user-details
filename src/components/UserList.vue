@@ -27,9 +27,22 @@
     </table>
     <div v-if="loading">Loading...</div>
     <div class="mt-8 flex justify-center content-center align-middle">
-      <button @click="changePage(-1)" :disabled="isPreviousDisabled">Previous</button>
+      <button class="pagination-btn" @click="changePage(-1)" :disabled="isPreviousDisabled">Previous</button>
       <span class="flex mx-8 align-middle items-center"> Page {{ currentPage }} of {{ totalPages }}</span>
-      <button @click="changePage(1)" :disabled="isNextDisabled">Next</button>
+      <button class="pagination-btn" @click="changePage(1)" :disabled="isNextDisabled">Next</button>
+    </div>
+    <div class="mt-8 flex justify-center content-center align-middle">
+      <ul class="flex">
+        <li v-for="page in pages" :key="page" class="m-0 p-0">
+          <button
+            @click="fetchUserData(page)"
+            :class="{ 'bg-blue-500 text-white p-2': currentPage === page, 'bg-white text-blue-500 p-2': currentPage !== page }"
+            class="border rounded border-blue-500 bg-blue-500 text-xs m-0 mr-1"
+          >
+            {{ page }}
+          </button>
+        </li>
+      </ul>
     </div>
   </div>
   <p v-else>No Users Found.</p>
@@ -44,6 +57,14 @@ const currentPage = ref(1)
 const limit = ref(15)
 const totalPages = ref(0)
 const loading = ref(false)
+
+const pages = computed(() => {
+  const pageNumbers = []
+  for (let i = 1; i <= totalPages.value; i++) {
+    pageNumbers.push(i)
+  }
+  return pageNumbers
+})
 
 const isPreviousDisabled = computed(() => currentPage.value <= 1 || loading.value)
 const isNextDisabled = computed(() => currentPage.value >= totalPages.value || loading.value)
@@ -102,11 +123,10 @@ img {
   border-radius: 50%;
 }
 
-button {
-  margin: 5px;
+button.pagination-btn {
   padding: 5px 10px;
+  color: #fff;
   background-color: #007bff;
-  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -114,5 +134,22 @@ button {
 
 button:disabled {
   background-color: #ccc;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: inline;
+}
+
+.bg-gray-300 {
+  background-color: #e2e8f0;
+}
+
+.bg-white {
+  background-color: #ffffff;
 }
 </style>
