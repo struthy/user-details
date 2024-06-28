@@ -34,12 +34,12 @@ const orderIcon = computed(() => {
   return order.value === 'asc' ? '&#9660;' : '&#9650;' // Down arrow for ascending, up arrow for descending
 })
 
-const changePage = (increment) => {
-  const newPage = currentPage.value + increment
-  if (newPage > 0 && newPage <= totalPages.value) {
-    fetchUserData(newPage)
-  }
-}
+// const changePage = (increment) => {
+//   const newPage = currentPage.value + increment
+//   if (newPage > 0 && newPage <= totalPages.value) {
+//     fetchUserData(newPage)
+//   }
+// }
 
 const changeOrder = (field) => {
   if (orderBy.value === field) {
