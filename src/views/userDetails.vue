@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user" class="p-4 bg-white rounded shadow-lg">
+  <div v-if="user" class="p-4 bg-white rounded shadow-lg relative">
     <div class="flex flex-wrap w-full">
       <div class="w-full sm:w-1/4 mb-4 sm:mb-0">
         <img :src="user.avatar" alt="User avatar" class="rounded-full w-32 h-32 mx-auto" />
@@ -35,7 +35,7 @@
       </div>
     </div>
   </div>
-  <p v-else class="p-4 text-gray-600">Loading user details...</p>
+  <p v-else class="absolute top-0 left-0 h-full w-full bg-white opacity-40 flex justify-center items-center text-gray-900">Loading user details...</p>
 </template>
 
 <script setup>

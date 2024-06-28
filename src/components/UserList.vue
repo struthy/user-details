@@ -5,8 +5,12 @@
     <table>
       <thead>
         <tr>
-          <th class="font-bold cursor-pointer text-blue-500" @click="changeOrder('firstName')">First Name</th>
-          <th class="font-bold cursor-pointer text-blue-500" @click="changeOrder('lastName')">Last Name</th>
+          <th class="font-bold cursor-pointer" style="width: 215px">
+            <button @click="changeOrder('firstName')" :class="{ active: orderBy === 'firstName' }">First Name <span v-html="orderBy === 'firstName' ? orderIcon : ''"></span></button>
+          </th>
+          <th class="font-bold cursor-pointer" style="width: 215px">
+            <button @click="changeOrder('lastName')" :class="{ active: orderBy === 'lastName' }">Last Name <span v-html="orderBy === 'lastName' ? orderIcon : ''"></span></button>
+          </th>
           <th class="font-bold">Email</th>
           <th class="font-bold">Location</th>
           <th class="font-bold">Avatar</th>
@@ -78,6 +82,10 @@ const orderMessage = computed(() => {
   return `Currently ordered by <strong>${field}</strong> in <strong>${direction}</strong> order`
 })
 
+const orderIcon = computed(() => {
+  return order.value === 'asc' ? '&#9660;' : '&#9650;' // Down arrow for ascending, up arrow for descending
+})
+
 const changePage = (increment) => {
   const newPage = currentPage.value + increment
   if (newPage > 0 && newPage <= totalPages.value) {
@@ -128,6 +136,10 @@ td {
   border-bottom: 1px solid #ddd;
 }
 
+th {
+  cursor: pointer;
+}
+
 tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -170,5 +182,10 @@ li {
 
 .bg-white {
   background-color: #ffffff;
+}
+
+button.active {
+  font-weight: bold;
+  color: #1d4ed8; /* Example color for the active button */
 }
 </style>
