@@ -1,16 +1,20 @@
 <template>
   <div v-if="users && users.length">
     <h1 class="text-xl font-bold mb-8">User List</h1>
-    <p class="mb-4" v-html="orderMessage"></p>
+    <div class="flex justify-between mb-4">
+      <span v-html="orderMessage"></span>
+      <span class="flex align-middle items-center"> Page {{ currentPage }} of {{ totalPages }}</span>
+    </div>
+
     <table role="grid" aria-labelledby="user-list-heading">
       <thead>
         <tr>
-          <th class="font-bold cursor-pointer" style="width: 215px">
+          <th class="font-bold cursor-pointer text-blue-600" style="width: 215px">
             <button @click="changeOrder('firstName')" :class="{ active: orderBy === 'firstName' }" aria-label="Sort by first name">
               First Name <span v-html="orderBy === 'firstName' ? orderIcon : ''"></span>
             </button>
           </th>
-          <th class="font-bold cursor-pointer" style="width: 215px">
+          <th class="font-bold cursor-pointer text-blue-600" style="width: 215px">
             <button @click="changeOrder('lastName')" :class="{ active: orderBy === 'lastName' }" aria-label="Sort by last name">
               Last Name <span v-html="orderBy === 'lastName' ? orderIcon : ''"></span>
             </button>
@@ -199,7 +203,7 @@ button.active {
 a:focus,
 button:focus,
 .router-link:focus {
-  outline: 2px solid #4a90e2; /* Example focus outline color */
+  outline: 1px solid #4a90e2; /* Example focus outline color */
   outline-offset: 2px;
 }
 </style>
