@@ -2,14 +2,18 @@
   <div v-if="users && users.length">
     <h1 class="text-xl font-bold mb-8">User List</h1>
     <p class="mb-4" v-html="orderMessage"></p>
-    <table>
+    <table role="grid" aria-labelledby="user-list-heading">
       <thead>
         <tr>
           <th class="font-bold cursor-pointer" style="width: 215px">
-            <button @click="changeOrder('firstName')" :class="{ active: orderBy === 'firstName' }">First Name <span v-html="orderBy === 'firstName' ? orderIcon : ''"></span></button>
+            <button @click="changeOrder('firstName')" :class="{ active: orderBy === 'firstName' }" aria-label="Sort by first name">
+              First Name <span v-html="orderBy === 'firstName' ? orderIcon : ''"></span>
+            </button>
           </th>
           <th class="font-bold cursor-pointer" style="width: 215px">
-            <button @click="changeOrder('lastName')" :class="{ active: orderBy === 'lastName' }">Last Name <span v-html="orderBy === 'lastName' ? orderIcon : ''"></span></button>
+            <button @click="changeOrder('lastName')" :class="{ active: orderBy === 'lastName' }" aria-label="Sort by last name">
+              Last Name <span v-html="orderBy === 'lastName' ? orderIcon : ''"></span>
+            </button>
           </th>
           <th class="font-bold">Email</th>
           <th class="font-bold">Location</th>
@@ -21,11 +25,13 @@
         <tr v-for="user in users" :key="user.id">
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.address.city }}</td>
-          <td><img :src="user.avatar" alt="User avatar" /></td>
           <td>
-            <router-link class="inline-block px-4 py-2 bg-blue-500 text-white rounded text-xs" :to="'/user/' + user.id">View Details</router-link>
+            <a :href="`mailto:${user.email}`" class="text-blue-600 underline">{{ user.email }}</a>
+          </td>
+          <td>{{ user.address.city }}</td>
+          <td><img :src="user.avatar" :alt="`${user.firstName} ${user.lastName}'s avatar`" /></td>
+          <td>
+            <router-link class="inline-block px-2 py-1 bg-blue-500 text-white rounded text-xs focus:outline-none focus:ring-2 focus:ring-blue-300" :to="'/user/' + user.id">View Details</router-link>
           </td>
         </tr>
       </tbody>
@@ -37,12 +43,13 @@
       <button class="pagination-btn" @click="changePage(1)" :disabled="isNextDisabled">Next</button>
     </div>
     <div class="mt-8 flex justify-center content-center align-middle">
-      <ul class="flex">
+      <ul class="flex" role="list">
         <li v-for="page in pages" :key="page" class="m-0 p-0">
           <button
             @click="fetchUserData(page)"
             :class="{ 'bg-blue-500 text-white p-2': currentPage === page, 'bg-white text-blue-500 p-2': currentPage !== page }"
-            class="border rounded border-blue-500 bg-blue-500 text-xs m-0 mr-1"
+            class="border rounded border-blue-500 bg-blue-500 text-xs m-0 mr-1 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            :aria-label="'Page ' + page"
           >
             {{ page }}
           </button>
@@ -149,9 +156,9 @@ tr:nth-child(odd) {
 }
 
 img {
-  width: 50px;
+  width: 30px;
   height: auto;
-  border-radius: 50%;
+  border-radius: 100%;
 }
 
 button.pagination-btn {
@@ -187,5 +194,12 @@ li {
 button.active {
   font-weight: bold;
   color: #1d4ed8; /* Example color for the active button */
+}
+
+a:focus,
+button:focus,
+.router-link:focus {
+  outline: 2px solid #4a90e2; /* Example focus outline color */
+  outline-offset: 2px;
 }
 </style>
