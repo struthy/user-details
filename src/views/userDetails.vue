@@ -1,42 +1,95 @@
 <template>
-  <div v-if="user" class="p-4 bg-white rounded shadow-lg relative">
-    <div class="flex flex-wrap w-full">
-      <div class="w-full sm:w-1/4 mb-4 sm:mb-0">
-        <img :src="user.avatar" :alt="`${user.firstName} ${user.lastName}'s avatar`" class="w-32 h-32 mx-auto" />
-      </div>
+  <div v-if="user">
+    <h1 class="text-xl font-bold mb-4">{{ user.firstName }} {{ user.lastName }}</h1>
+    <div class="p-4 bg-white shadow-md border-t relative mb-4 pb-12">
+      <div class="flex flex-wrap w-full">
+        <div class="w-full mb-8 sm:mb-8flex justify-star">
+          <img :src="user.avatar" :alt="`${user.firstName} ${user.lastName}'s avatar`" class="w-32 h-32" />
+        </div>
 
-      <div class="w-full sm:w-1/4 mb-4 sm:mb-0">
-        <h3 class="text-lg font-semibold mb-2">Personal Details:</h3>
-        <p><span class="font-semibold">Name:</span> {{ user.firstName }} {{ user.lastName }}</p>
-        <p>
-          <span class="font-semibold">Email:</span> <a :href="`mailto:${user.email}`" class="text-blue-600 underline">{{ user.email }}</a>
-        </p>
-        <p>
-          <span class="font-semibold">Phone:</span> <a :href="`tel:${user.phoneNumber}`" class="text-blue-600 underline">{{ user.phoneNumber }}</a>
-        </p>
-        <p><span class="font-semibold">Date of Birth:</span> {{ user.dateOfBirth }}</p>
-        <p><span class="font-semibold">NI Number:</span> {{ obfuscate(user.nino) }}</p>
-      </div>
+        <div class="w-full sm:w-1/4 mb-4 sm:mb-0 sm:pr-16 sm:flex-1">
+          <h3 class="text-lg font-semibold mb-2">Personal Details:</h3>
+          <table class="w-full">
+            <tbody>
+              <tr class="bg-gray-100">
+                <td class="font-semibold p-2">Name:</td>
+                <td class="p-2">{{ user.firstName }} {{ user.lastName }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold p-2">Email:</td>
+                <td class="p-2">
+                  <a :href="`mailto:${user.email}`" class="text-blue-600 underline">{{ user.email }}</a>
+                </td>
+              </tr>
+              <tr class="bg-gray-100">
+                <td class="font-semibold p-2">Phone:</td>
+                <td class="p-2">
+                  <a :href="`tel:${user.phoneNumber}`" class="text-blue-600 underline">{{ user.phoneNumber }}</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-semibold p-2">Date of Birth:</td>
+                <td class="p-2">{{ user.dateOfBirth }}</td>
+              </tr>
+              <tr class="bg-gray-100">
+                <td class="font-semibold p-2">NI Number:</td>
+                <td class="p-2">{{ obfuscate(user.nino) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <div class="w-full sm:w-1/4 mb-4 sm:mb-0">
-        <h3 class="text-lg font-semibold mb-2">Address:</h3>
-        <p>{{ user.address.addressLine1 }}</p>
-        <p>{{ user.address.city }}</p>
-        <p>{{ user.address.postCode }}</p>
-        <p>{{ user.address.country }}</p>
-      </div>
+        <div class="w-full sm:w-1/4 mb-4 sm:mb-0 sm:pr-16 sm:flex-1">
+          <h3 class="text-lg font-semibold mb-2">Address:</h3>
+          <table class="w-full">
+            <tbody>
+              <tr class="bg-gray-100">
+                <td class="font-semibold p-2">Address Line 1:</td>
+                <td class="p-2">{{ user.address.addressLine1 }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold p-2">City:</td>
+                <td class="p-2">{{ user.address.city }}</td>
+              </tr>
+              <tr class="bg-gray-100">
+                <td class="font-semibold p-2">Post Code:</td>
+                <td class="p-2">{{ user.address.postCode }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold p-2">Country:</td>
+                <td class="p-2">{{ user.address.country }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <div class="w-full sm:w-1/4">
-        <h3 class="text-lg font-semibold mb-2">Payment Details:</h3>
-        <p><span class="font-semibold">Account Name:</span> {{ obfuscate(user.paymentDetails.accountName) }}</p>
-        <p><span class="font-semibold">Account Number:</span> {{ obfuscate(user.paymentDetails.accountNumber) }}</p>
-        <p><span class="font-semibold">Sort Code:</span> {{ obfuscate(user.paymentDetails.sortCode) }}</p>
-        <p><span class="font-semibold">Account Type:</span> {{ user.paymentDetails.accountType }}</p>
+        <div class="w-full sm:w-1/4 flex-1">
+          <h3 class="text-lg font-semibold mb-2">Payment Details:</h3>
+          <table class="w-full">
+            <tbody>
+              <tr class="bg-gray-100">
+                <td class="font-semibold p-2">Account Name:</td>
+                <td class="p-2">{{ obfuscate(user.paymentDetails.accountName) }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold p-2">Account Number:</td>
+                <td class="p-2">{{ obfuscate(user.paymentDetails.accountNumber) }}</td>
+              </tr>
+              <tr class="bg-gray-100">
+                <td class="font-semibold p-2">Sort Code:</td>
+                <td class="p-2">{{ obfuscate(user.paymentDetails.sortCode) }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold p-2">Account Type:</td>
+                <td class="p-2">{{ user.paymentDetails.accountType }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      <div class="w-full flex justify-end">
-        <router-link to="/" class="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-300"> Back to User List </router-link>
-      </div>
+    </div>
+    <div class="w-full flex justify-start">
+      <router-link to="/" class="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-300"> Back to User List </router-link>
     </div>
   </div>
   <p v-else class="absolute top-0 left-0 h-full w-full bg-white opacity-40 flex justify-center items-center text-gray-900">Loading user details...</p>
