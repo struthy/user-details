@@ -128,10 +128,6 @@ td {
   border-bottom: 1px solid #ddd;
 }
 
-th {
-  cursor: pointer;
-}
-
 tr:nth-child(even) {
   background-color: #f9f9f9;
 }
