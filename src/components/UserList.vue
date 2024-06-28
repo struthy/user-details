@@ -4,8 +4,8 @@
     <table>
       <thead>
         <tr>
-          <th class="font-bold">First Name</th>
-          <th class="font-bold">Last Name</th>
+          <th class="font-bold cursor-pointer" @click="changeOrder('firstName')">First Name</th>
+          <th class="font-bold cursor-pointer" @click="changeOrder('lastName')">Last Name</th>
           <th class="font-bold">Email</th>
           <th class="font-bold">Location</th>
           <th class="font-bold">Avatar</th>
@@ -57,6 +57,8 @@ const currentPage = ref(1)
 const limit = ref(15)
 const totalPages = ref(0)
 const loading = ref(false)
+const orderBy = ref('firstName')
+const order = ref('asc')
 
 const pages = computed(() => {
   const pageNumbers = []
@@ -76,11 +78,21 @@ const changePage = (increment) => {
   }
 }
 
+const changeOrder = (field) => {
+  if (orderBy.value === field) {
+    order.value = order.value === 'asc' ? 'desc' : 'asc'
+  } else {
+    orderBy.value = field
+    order.value = 'asc'
+  }
+  fetchUserData(currentPage.value)
+}
+
 async function fetchUserData(page) {
   loading.value = true
-  console.log(`Fetching page: ${page}`)
+  console.log(`Fetching page: ${page}, orderBy: ${orderBy.value}, order: ${order.value}`)
   try {
-    const response = await axios.get(`/api/user?page=${page}&limit=${limit.value}`)
+    const response = await axios.get(`/api/user?page=${page}&limit=${limit.value}&orderBy=${orderBy.value}&order=${order.value}`)
     console.log('API response:', response.data) // Log the entire response
     users.value = response.data.results
     totalPages.value = response.data.metadata.numPages // Use numPages from the response metadata
@@ -107,6 +119,10 @@ td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+}
+
+th {
+  cursor: pointer;
 }
 
 tr:nth-child(even) {
