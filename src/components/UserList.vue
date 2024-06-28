@@ -4,8 +4,8 @@
     <table>
       <thead>
         <tr>
-          <th class="font-bold cursor-pointer" @click="changeOrder('firstName')">First Name</th>
-          <th class="font-bold cursor-pointer" @click="changeOrder('lastName')">Last Name</th>
+          <th class="font-bold cursor-pointer underline text-blue-500" @click="changeOrder('firstName')">First Name</th>
+          <th class="font-bold cursor-pointer underline text-blue-500" @click="changeOrder('lastName')">Last Name</th>
           <th class="font-bold">Email</th>
           <th class="font-bold">Location</th>
           <th class="font-bold">Avatar</th>
