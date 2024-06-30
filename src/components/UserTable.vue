@@ -1,5 +1,5 @@
 <template>
-  <table role="grid" aria-labelledby="user-list-heading">
+  <table role="grid" aria-labelledby="user-list">
     <thead>
       <tr>
         <th class="font-bold cursor-pointer text-blue-600" style="width: 215px">
