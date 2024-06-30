@@ -96,29 +96,36 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import axios from 'axios'
+import { ref, onMounted } from 'vue' // Importing ref and onMounted from Vue for reactive state and lifecycle hooks
+import { useRoute } from 'vue-router' // Importing useRoute from vue-router to access route parameters
+import axios from 'axios' // Importing axios for making HTTP requests
 
+// Define a reactive variable to store user data
 const user = ref(null)
+
+// Get the current route to access route parameters
 const route = useRoute()
 
+// Function to obfuscate sensitive information
 const obfuscate = (value) => {
-  if (!value) return ''
-  const visibleChars = 2
-  const obfuscationLength = value.length - visibleChars
+  if (!value) return '' // If value is null or undefined, return an empty string
+  const visibleChars = 2 // Number of visible characters at the start of the string
+  const obfuscationLength = value.length - visibleChars // Length of the obfuscated part of the string
+  // Return the obfuscated string with the visible characters at the start and the rest replaced by '*'
   return value.substring(0, visibleChars) + '*'.repeat(obfuscationLength)
 }
 
+// Lifecycle hook that runs when the component is mounted
 onMounted(async () => {
-  const userId = route.params.id
-  console.log('Fetching details for user ID:', userId)
+  const userId = route.params.id // Get the user ID from the route parameters
+  console.log('Fetching details for user ID:', userId) // Log the user ID being fetched
   try {
-    const response = await axios.get(`/api/user/${userId}`) // Use the proxied path
-    user.value = response.data
-    console.log('Fetched user data:', response.data)
+    // Make an HTTP GET request to fetch the user data by user ID
+    const response = await axios.get(`/api/user/${userId}`)
+    user.value = response.data // Store the fetched user data in the reactive user variable
+    console.log('Fetched user data:', response.data) // Log the fetched user data
   } catch (error) {
-    console.error('Failed to fetch user details:', error)
+    console.error('Failed to fetch user details:', error) // Log any error that occurs during the fetch operation
   }
 })
 </script>

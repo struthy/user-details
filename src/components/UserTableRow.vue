@@ -14,9 +14,15 @@
 </template>
 
 <script setup>
+import { defineProps } from 'vue'
+
+// Define props for the component
 const props = defineProps({
-  user: Object
+  user: Object // The user object containing user details
 })
+
+// Destructure user from props to avoid eslint warning
+const { user } = props
 </script>
 
 <style scoped>

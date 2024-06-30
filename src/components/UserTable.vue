@@ -25,17 +25,20 @@
 </template>
 
 <script setup>
-import UserTableRow from './UserTableRow.vue'
-import { defineProps, defineEmits } from 'vue'
+import UserTableRow from './UserTableRow.vue' // Import the UserTableRow component for displaying individual rows
+import { defineProps, defineEmits } from 'vue' // Importing functions to define props and emits
 
+// Define props for the component
 const props = defineProps({
-  users: Array,
-  orderBy: String,
-  orderIcon: String
+  users: Array, // Array of user objects to be displayed in the table
+  orderBy: String, // The field by which the data is currently ordered
+  orderIcon: String // The icon indicating the order direction (e.g., an up or down arrow)
 })
 
+// Define emits for the component to allow parent component to listen to events
 const emit = defineEmits(['changeOrder'])
 
+// Function to emit the changeOrder event with the given field
 const changeOrder = (field) => {
   emit('changeOrder', field)
 }

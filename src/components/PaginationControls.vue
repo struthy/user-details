@@ -19,40 +19,50 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue' // Importing ref and computed from Vue for reactive state and computed properties
 
+// Define props for the component
 const props = defineProps({
-  currentPage: Number,
-  totalPages: Number,
-  loading: Boolean
+  currentPage: Number, // The current page number
+  totalPages: Number, // The total number of pages
+  loading: Boolean // Boolean indicating whether data is loading
 })
 
+// Define emits for the component to allow parent component to listen to events
 const emit = defineEmits(['fetchUserData'])
 
+// Computed property to generate an array of page numbers
 const pages = computed(() => {
   const pageNumbers = []
+  // Loop through the total number of pages and push each page number into the array
   for (let i = 1; i <= props.totalPages; i++) {
     pageNumbers.push(i)
   }
-  return pageNumbers
+  return pageNumbers // Return the array of page numbers
 })
 
+// Computed property to check if the Previous button should be disabled
 const isPreviousDisabled = computed(() => props.currentPage <= 1 || props.loading)
+
+// Computed property to check if the Next button should be disabled
 const isNextDisabled = computed(() => props.currentPage >= props.totalPages || props.loading)
 
+// Function to emit the fetchUserData event with the given page number
 const fetchUserData = (page) => {
   emit('fetchUserData', page)
 }
 
+// Function to navigate to the previous page
 const previousPage = () => {
   if (props.currentPage > 1) {
-    fetchUserData(props.currentPage - 1)
+    fetchUserData(props.currentPage - 1) // Fetch data for the previous page
   }
 }
 
+// Function to navigate to the next page
 const nextPage = () => {
   if (props.currentPage < props.totalPages) {
-    fetchUserData(props.currentPage + 1)
+    fetchUserData(props.currentPage + 1) // Fetch data for the next page
   }
 }
 </script>
